@@ -53,15 +53,20 @@ init
 update
 {
 
-if (vars.splitCount == 0)
-{
-    vars.startTimer = false;
-}
-
 //Final Split Activation
     if (vars.splitCount == 8 && current.bookFact == 1 && current.endText == 1)
     {
 	    vars.lastSplit = true;
+    }
+}
+
+reset
+{
+    if (vars.splitCount > 0 && current.titleExit == 1)
+    {
+            vars.lastSplit = false;
+            vars.splitCount = 0;
+	        return true;
     }
 }
 
@@ -72,6 +77,7 @@ start
     if (vars.splitCount == 0 && current.titleExit == 0 && old.titleExit == 1)
     {
         vars.splitCount = 1;
+        //current.StartTimeWithOffset = 1.0f;
         return true;
     }
 }
